@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>d1_react</title>
+</head>
+<body>
+    <!-- prepare a container -->
+    <div id="test"></div>
+    <!-- import react core package first import this -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- import react-dom, for letting react operate DOM -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/preset-env.min.js"></script>
+    <script type="text/babel">
+        // const VDOM = <h1>D1 React</h1>
+        // const VDOM = React.createElement('button',{id:'btn'}, 'button')用react对象的方法写
+        const VDOM = (<h1>
+                         <span> D1 React </span>
+                        </h1>)
+        ReactDOM.render(VDOM, document.getElementById("test"))
+    </script>
+</body>
+</html>

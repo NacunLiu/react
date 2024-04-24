@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSX</title>
+</head>
+
+<body>
+    <div id="container"></div>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/preset-env.min.js"></script>
+    <script type="text/babel">
+        // 1.直接定义标签不加引号
+        // 2.使用js表达式需要加{},表达式是能够获得一个返回值并且可以用在任何地方
+        // 3.class是js保留字，在jsx中需要使用className
+        // 4.style样式需要{{}}中使用键值对来表示
+        // 5.一个VDOM中必须有且只有一个跟标签，比如用一个div包裹
+        // 6.小写字母开始的标签会自动去比对html标签，大写开始的标签React回去对应组件，没有就会报错
+        // 7.标签必须闭合，单标签的结尾要加一个 /
+        // 8.在{}内不能写if或者for之类的判断语句，只能写a+b或者函数之类的能获得返回值的表达式
+        let btn_content = "start test";
+        let list1 = ['React', 'Vue', 'Angula'];
+        const VDOM = (<div>
+            <h1>JXM</h1>
+            <ul>
+                {list1.map((item, index) => {
+                    return <li key={index}>{item}</li>
+                })}
+            </ul>
+            <div id="run" style={{ backgroundColor: "skyblue", width: "80px", height: "80px", lineHeight: "80px", textAlign: "center", position: "absolute", left: "10px", top: "200px" }}>test result</div>
+            <button className="btn" style={{ width: "90px", height: "40px", backgroundColor: "red", margin: "10px" }}>{btn_content.toUpperCase()}</button>
+        </div>);
+        ReactDOM.render(VDOM, document.getElementById('container'));
+        const btn = document.querySelector('.btn');
+        const run = document.querySelector('#run');
+        let timer;
+        btn.onclick = () => {
+            alert("test started");
+            clearInterval(timer);
+            setInterval(function () {
+                run.style.left = (Math.random() * 1910 + 10) + "px";
+                run.style.top = (Math.random() * 1070 + 10) + "px";
+            }, 500)
+        }
+
+    </script>
+</body>
+
+</html>

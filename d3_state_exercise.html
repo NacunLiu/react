@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This Exercise</title>
+    <style>
+        #btn1 {
+            width: 60px;
+            height: 30px;
+            background-color: aliceblue;
+            border: 1px double #888;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box1"></div>
+    <!-- import react core package first import this -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- import react-dom, for letting react operate DOM -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- import babel for module test -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/preset-env.min.js"></script>
+    <script type="text/babel">
+        const box1 = document.getElementsByClassName('box1')[0]
+        class Display extends React.Component {
+            constructor(props) {
+                super(props)
+                this.state = { isclicked: false }
+                this.changeColor = this.changeColor.bind(this)
+            }
+            changeColor() {
+                this.setState((prevState) => ({
+                    isclicked: !prevState.isclicked
+                }))
+            }
+            render() {
+                const buttonStyle = { width: "60px", height: "30px", backgroundColor: this.state.isclicked ? "orange" : "#888" }
+                const content = this.state.isclicked ? "clicked": "waiting"
+                return <button onClick={this.changeColor} style={buttonStyle}>{content}</button>
+            }
+        }
+        ReactDOM.render(<Display />, box1)
+    </script>
+</body>
+
+</html>

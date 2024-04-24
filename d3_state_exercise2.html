@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State Test 2</title>
+    <style>
+        #container::after {
+            content:"";
+            display:block;
+            clear:both
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box1"></div>
+    <!-- import react core package first import this -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- import react-dom, for letting react operate DOM -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- import babel for module test -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/preset-env.min.js"></script>
+    <SCript type="text/babel">
+        class Header extends React.Component {
+            constructor(props) {
+                super(props)
+                // this 指向类的实例对象，定义state对象
+                this.state = { ishover: false }
+                this.hover_resp = this.hover_resp.bind(this)
+            }
+            hover_resp() {
+                this.setState((prevState) => ({
+                    ishover: !prevState.ishover
+                }))
+            }
+            render() {
+                const containerStyle = { clear: "both", width:"800px", backgroundColor: this.state.ishover ? "#888" : "orange" }
+                return <div id="container" onMouseEnter={this.hover_resp} onMouseLeave={this.hover_resp} style={containerStyle}>
+                    <div id="logo"><img src="react_logo.png" style={{ float: "left" }} /></div>
+                </div>
+            }
+        }
+        ReactDOM.render(<Header />, document.getElementsByClassName('box1')[0])
+    </SCript>
+</body>
+
+</html>

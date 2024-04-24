@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component State</title>
+    <style>
+        .box1 {
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box1"></div>
+    <!-- import react core package first import this -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- import react-dom, for letting react operate DOM -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- import babel for module test -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/preset-env.min.js"></script>
+    <script type="text/babel">
+        const box1 = document.getElementsByClassName('box1')[0];
+
+        class Weather extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { isgood: false };
+                this.demo = this.demo.bind(this); // 绑定事件处理函数的 this
+            }
+
+            demo() {
+                this.setState((prevState) => ({
+                    isgood: !prevState.isgood // 切换 isgood 状态
+                }));
+            }
+
+            render() {
+                return (
+                    <span onClick={this.demo} style={{backgroundColor:this.state.isgood ? "red": "transparent", fontStyle: this.state.isgood ? "italic": "normal"}}>
+                        Facility location heatmap weather {this.state.isgood ? "hot" : "cold"}
+                    </span>
+                );
+            }
+        }
+
+        ReactDOM.render(<Weather />, box1);
+    </script>
+</body>
+
+</html>

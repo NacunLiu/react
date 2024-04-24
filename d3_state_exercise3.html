@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State Exercise 3</title>
+</head>
+
+<body>
+    <div class="box1"></div>
+    <!-- import react core package first import this -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- import react-dom, for letting react operate DOM -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- import babel for module test -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/preset-env.min.js"></script>
+    <script type="text/babel">
+        class MainNavi extends React.Component {
+            constructor(props) {
+                super(props)
+                this.state = { item1: "AcuLink810", item2: "AcuCloud", item3: "AcuVim2v3", n: 0 }
+                this.listItem = this.listItem.bind(this)
+            }
+            listItem() {
+                this.setState((prevState) => ({
+                    n: prevState.n+1,
+                    item1: "AcuLink8" + (prevState.n + 1) + "0"
+                }))
+            }
+            // render是类的实例对象调用的，可以直接使用this,this指向调用的实例对象本身
+            render() {
+                return (<div>
+                    <ul>
+                        <li>{this.state.item1}</li>
+                        <li>AcuCloud</li>
+                        <li>AcuVim2v3</li>
+                    </ul>
+                    <button onClick={this.listItem} style={{ width: "70px", height: "20px" }}></button>
+                </div>
+                )
+            }
+        }
+        ReactDOM.render(<MainNavi />, document.getElementsByClassName('box1')[0])
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <style>
+        .container {
+            width: 200px;
+            height: 100px;
+            background-color: skyblue;
+            border: 1px black solid;
+            padding: 10px;
+        }
+
+        .btn {
+            width: 80px;
+            height: 40px;
+            background-color: greenyellow;
+            border: 2px black double;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container"></div>
+    <button class="btn">start test</button>
+    <script type="text/javascript">
+        const box = document.querySelector('.container');
+        const btn = document.querySelector('.btn');
+        btn.addEventListener('click', function () {
+            var data  = new Array();
+            let n = Number(prompt("数组长度"));
+            for (var i = 0; i < n; i++) {
+                data[i] = Number(prompt("please input data"));
+            }
+            new_data = data.map((item) => {
+                return item + 1;
+            })
+            console.log(new_data, typeof new_data);
+        }, false)
+    </script>
+</body>
+
+</html>
