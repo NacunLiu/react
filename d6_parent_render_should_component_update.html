@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D6 Parent Render Should Component Update</title>
+</head>
+
+<body>
+    <div class="bx1"></div>
+    <!-- import react core package first import this -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- import react-dom, for letting react operate DOM -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- import babel for module test -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/preset-env.min.js"></script>
+    <script type="text/babel">
+        // 元素的嵌套渲染，将子元素放到父元素中一起由父元素渲染，和ReacDOM的方法一样，将子元素以闭合标签的形式写入到父元素的render 返回值中
+        // 父元素，在其中渲染子元素
+        class AcuLink810 extends React.Component {
+            constructor(props) {
+                super(props)
+                this.state = { readingParams: 0 }
+            }
+            reset_btn = () => {
+                // 取出状态中的readingParams
+                const { readingParams } = this.state
+                // 将readingParams + 1 之后从新赋值给状态
+                this.setState({ readingParams: readingParams + 1 })
+            }
+            render() {
+                const readingParams = this.state.readingParams
+                return (
+                    <div>
+                        AcuLink810 DI Inputs:
+                        <button onClick={this.reset_btn}>reset</button>
+                        <Acuvim2v3 readingParams={readingParams} />
+                    </div>
+                )
+            }
+        }
+        // 子元素，接收父元素的值
+        class Acuvim2v3 extends React.Component {
+            render() {
+                return (
+                    <div>
+                        Reading from AcuLink810: {this.props.readingParams}
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<AcuLink810 />, document.getElementsByClassName('bx1')[0])
+    </script>
+</body>
+
+</html>

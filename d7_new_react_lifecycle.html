@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D7 New React Lifecycle</title>
+</head>
+
+<body>
+    <div id="bx1"></div>
+    <!-- 将react下载到本地然后在本地引入 -->
+    <!-- <script type="text/javascript" src="js/17.0.1/react.development.js"></script>
+    <script type="text/javascript" src="js/17.0.1/react-dom.development.js"></script>
+    <script type="text/javascript" src="js/17.0.1/babel.js"></script> -->
+    <!-- import react core package first import this -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- import react-dom, for letting react operate DOM -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- import babel for module test -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/preset-env.min.js"></script>
+    <script type="text/babel">
+        // 在新版的React中will相关的回调函数需要加入UNSAFE避免warning，这些生命周期即将过时应该在代码中避免使用
+        // UNSAFE_componentWillMount
+        // UNSAFE_componentWillUpdate
+        // UNSAFE_componentWillReceiveProps
+        // 在constructor之后的钩子是getDerivedStateFromProps取代了componentWillMount
+        // getSnapshotBeforeUpdate
+        class Gateway extends React.Component {
+            constructor(props) {
+                super(props)
+                this.state = {
+                    di_count: 0,
+                    pressed: false
+                }
+                console.log("Gateway---constructor")
+            }
+            componentDidMount() {
+                console.log('Gateway---componentDidMount')
+            }
+            componentWillUpdate = () => {
+                console.log('Gateway---componentWillUpdate')
+            }
+            componentDidUpdate = () => {
+                console.log('Gateway---componentDidUpdate')
+            }
+            // props决定state，而且state只受props控制,必须返回一个state对象或者是null
+            // 在这个回调函数前必须加上static静态方法，也就是类方法，可以通过类名直接调用
+            static getDerivedStateFromProps() {
+                console.log('Gateway---getDerivedStateFromProps')
+                // return {di_count:101}
+                return null
+            }
+            getSnapshotBeforeUpdate() {
+                console.log('Gateway---getSnapshorBeforeUpdate')
+                return null
+            }
+            add = () => {
+                const { di_count: count } = this.state
+                this.setState({ di_count: count + 1 })
+            }
+            clear = () => {
+                this.setState({ di_count: 0 })
+            }
+            handleDown = () => {
+                this.setState({ pressed: true })
+            }
+            handleUp = () => {
+                this.setState({ pressed: false })
+            }
+            handleLeave = () => {
+                this.setState({ pressed: false })
+            }
+            render() {
+                const clearStyle = {
+                    position: "absolute",
+                    right: "10px",
+                    bottom: "10px",
+                    backgroundColor: this.state.pressed ? "yellow" : "transparent"
+                }
+                return (
+                    <div style={{ position: "relative" }}>
+                        DI Count Total: &nbsp;
+                        <Meter count={this.state.di_count} />
+                        <button onClick={this.add}>DI Count</button> &nbsp;
+                        <button onClick={this.clear} onMouseDown={this.handleDown} onMouseUp={this.handleUp} onMouseLeave={this.handleLeave} style={clearStyle}>Clear</button>
+                    </div>
+                )
+            }
+        }
+        class Meter extends React.Component {
+            render() {
+                console.log('Gateway---render')
+                return (
+                    <div>{this.props.count}</div>
+                )
+            }
+        }
+        ReactDOM.render(<Gateway />, document.querySelector('#bx1'));
+    </script>
+</body>
+
+</html>

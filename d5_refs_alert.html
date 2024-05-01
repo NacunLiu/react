@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D5 Refs Alert</title>
+</head>
+
+<body>
+    <div class="bx1"></div>
+    <div class="bx2"></div>
+    <!-- import react core package first import this -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- import react-dom, for letting react operate DOM -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- import babel for module test -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/preset-env.min.js"></script>
+    <script type="text/babel">
+        class Demo extends React.Component {
+            state = {
+                isclicked: false
+            }
+            showData = () => {
+                // const ipt1 = document.getElementById('input1')
+                const { ipt1 } = this // 等同于 const ipt1 = this.ipt1
+                alert(ipt1.value)
+            }
+            showData2 = () => {
+                alert(this.refs.inpt2.value)
+            }
+            render() {
+                return (
+                    //ref 回调函数，会传入当前节点作为一个argument，然后在函数体内部将节点赋值给在函数中要用到的对象
+                    <div>
+                        <input ref={(currentNode) => this.ipt1 = currentNode} id="input1" type="text" placeholder="click button to show" />&nbsp;
+                        <button ref="btn1" onClick={this.showData}>click to show left</button> &nbsp;
+                        <input ref="inpt2" type="text" onBlur={this.showData2} placeholder="unfocus to show" />
+                    </div>
+                )
+            }
+        }
+        class CallBackRefs extends React.Component {
+
+        }
+        ReactDOM.render(<Demo />, document.getElementsByClassName('bx1')[0])
+    </script>
+</body>
+
+</html>

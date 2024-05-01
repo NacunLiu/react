@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>function component</title>
 </head>
+
 <body>
     <div class="box"></div>
     <div class="box2"></div>
@@ -17,16 +19,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/preset-env.min.js"></script>
     <script type="text/babel">
         function Demo() {
-            return <h1 style={{width:"600px", height:"100px", backgroundColor:"orange"}}>function component</h1>
+            return <h1 style={{ width: "600px", height: "100px", backgroundColor: "orange" }}>function component</h1>
         }
-        ReactDOM.render(<Demo/>, document.getElementsByClassName('box')[0])
-        class Mycomponent extends React.Component{
+        ReactDOM.render(<Demo />, document.getElementsByClassName('box')[0])
+        class Mycomponent extends React.Component {
             // pass the configurator
-            render(){
-                return <div id="content" style={{width:"600px", height:"100px", backgroundColor:"#888"}}>class component</div>
+            render() {
+                return <div id="content" style={{ width: "600px", height: "100px", backgroundColor: "#888" }}>class component</div>
             }
         }
-        ReactDOM.render(<Mycomponent/>, document.getElementsByClassName('box2')[0])
+        ReactDOM.render(<Mycomponent />, document.getElementsByClassName('box2')[0])
     </script>
 </body>
+
 </html>

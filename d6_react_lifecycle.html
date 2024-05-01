@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D6 React Lifecycle</title>
+</head>
+
+<body>
+    <div class="bx1"></div>
+    <!-- import react core package first import this -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- import react-dom, for letting react operate DOM -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- import babel for module test -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/preset-env.min.js"></script>
+    <script type="text/babel">
+        class Count extends React.Component {
+            // 构造器
+            constructor(props) {
+                console.log('Count---constructor')
+                super(props)
+                this.state = {
+                    count: 0
+                }
+            }
+            // 组件将要挂载的钩子
+            componentWillMount = () => {
+                console.log('Count---componentWillMount')
+            }
+            // 组件完成挂载的钩子
+            componentDidMount = () => {
+                console.log('Count---componentDidMount')
+            }
+            componentWillUnmount = () => {
+
+            }
+            // 判断是否允许更新的阀门
+            shouldComponentUpdate = () => {
+                return false
+            }
+            componentWillUpdate = () => {
+                console.log('Count---componentWillUpdate')
+            }
+            componentDidUpdate = () => {
+                console.log('Count---componentDidUpdate')
+            }
+            // 绕开阀门，不更新状态，强制更新页面渲染的函数
+            force = () => {
+                this.forceUpdate()
+            }
+            countPlus = () => {
+                console.log('function countPlus is called...')
+                const { count } = this.state
+                this.setState(() => ({
+                    count: count + 1
+                }))
+            }
+            render() {
+                console.log('render')
+                return (
+                    <div id="container">
+                        <h2>the times of count is {this.state.count}</h2>
+                        <button onClick={this.countPlus}>click +1</button>
+                        <button onClick={this.foce}>force update</button>
+                    </div>
+
+                )
+            }
+        }
+        // Count 的父类标签
+        class A extends React.Component{
+            render(){
+                return (
+                    <div> A 
+                        <Count />
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<A />, document.querySelector('.bx1'))
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <meta name="description" content="...">
+    <meta name="keywords" content="...">
+    <title>D5 Refs</title>
+</head>
+
+<body>
+    <div class="box1"></div>
+    <div class="box2"></div>
+    <!-- import react core package first import this -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- import react-dom, for letting react operate DOM -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- import babel for module test -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/preset-env.min.js"></script>
+    <script type="text/babel">
+        // state用于对状态的控制，改变state的值会使浏览器进行从新渲染
+        // props用于收集接收传入的参数, 在render函数的内部通过const {} = this.props进行接收，在render渲染的标签内部通过属性赋值传入
+        // ref用于直接获取元素对象 通过在函数内部使用this.refs.属性名的方法进行定位,字符串类型的refs不再进行维护
+        class Test810 extends React.Component {
+            state = {
+                isclicked: false,
+                message: 'test started...'
+            }
+            // 箭头函数内部的this始终指向定义时父级作用域的this值
+            change_color = () => { this.setState((prevstate) => ({ isclicked: !prevstate.isclicked })) }
+            render() {
+                const inputStyle = { backgroundColor: this.state.isclicked ? "#888" : "transparent" }
+                return (
+                    <div>
+                        <form action="#">
+                            <input onClick={this.change_color} style={inputStyle} ref="input1" type="text" />
+                        </form>
+                    </div>
+                )
+            }
+        }
+        class Test1 extends React.Component {
+            state = {
+                isclicked: false,
+                clicktimes: 0,
+                onhover: false
+            }
+            click_rep = () => {
+                this.setState((prevstate) => ({
+                    isclicked: !prevstate.isclicked,
+                    clicktimes: prevstate.clicktimes + 1
+                }))
+            }
+            hover_rep = () => {
+                this.setState((prevstate) => ({
+                    onhover: true
+                }))
+            }
+            render() {
+                const { name, reading, type } = this.props
+                const ulStyle = { color: this.state.onhover ? "yellow" : "black", backgroundColor: this.state.isclicked ? "skyblue" : "#bcbcbc" }
+                return (
+                    <ul onClick={this.click_rep} onHover={this.hover_rep} style={ulStyle}>
+                        <li>{"accuenergy: " + name + "test started"}</li>
+                        <li>{reading}</li>
+                        <li>{type}</li>
+                        <li style={{ color: "#888" }}>{this.state.clicktimes}</li>
+                    </ul>
+                )
+            }
+        }
+        const param1 = {name:"meter888", "reading":0, type:"physical"}
+        ReactDOM.render(<Test810 />, document.getElementsByClassName('box1')[0])
+        ReactDOM.render(<Test1 {...param1}/>, document.getElementsByClassName('box2')[0])
+
+    </script>
+</body>
+
+</html>

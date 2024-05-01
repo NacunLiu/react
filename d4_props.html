@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D5 Test Props</title>
+</head>
+
+<body>
+    <div class="bx1"></div>
+    <div class="bx2"></div>
+    <div class="bx3"></div>
+    <button id="btn">Test Start</button>
+    <!-- import react core package first import this -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- import react-dom, for letting react operate DOM -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- import babel for module test -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/preset-env.min.js"></script>
+    <script type="text/babel">
+        // import PropTypes from 'prop-types';
+        class Test810 extends React.Component {
+            render() {
+                console.log(this);
+                // const name = this.props.name
+                // const reading = this.props.reading
+                const { name, reading } = this.props
+                return (
+                    <ul>
+                        <li>{name}</li>
+                        <li>{reading + 1}</li>
+                    </ul>
+                )
+            }
+        }
+        // Test810.propTypes = {
+        //     name: PropTypes.string.isRequired,
+        //     reading: PropTypes.number.isRequired
+        // }
+        const m1 = { name: 'acumesh', reading: 200 }
+        // ReactDOM.render(<Test810 {...m1} />, document.getElementsByClassName('bx1')[0])
+        ReactDOM.render(<Test810 name="aculink810" reading={300} />, document.getElementsByClassName('bx1')[0])
+        ReactDOM.render(<Test810 name="acuvim2v3" reading={0} />, document.getElementsByClassName('bx2')[0])
+        ReactDOM.render(<Test810 name="eaton" reading={200} />, document.getElementsByClassName('bx3')[0])
+    </script>
+    <script>.3
+        
+        function Arr3() {
+            const arr1 = [1, 3, 5, 7, 9];
+            const arr2 = [2, 4, 6, 8, 10];
+            const combinedArray = [...arr1, ...arr2];
+
+            // 使用 map 方法将数组元素转换为 JSX 元素
+            const listItems = combinedArray.map((item, index) => <li key={index}>{item}</li>);
+
+            return (
+                <ul>
+                    {listItems}
+                </ul>
+            );
+        }
+
+        // 确保页面加载完成后再执行渲染操作
+            document.addEventListener('DOMContentLoaded', () => {
+            ReactDOM.render(<Arr3 />, document.querySelector('.bx2'));
+    </script>
+</body>
+</html>

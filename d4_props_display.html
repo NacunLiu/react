@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D4 Props Display</title>
+</head>
+
+<body>
+    <div id="bx1"></div>
+
+    <!-- Import React core package -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- Import ReactDOM for rendering React components -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- Import Babel for transpiling JSX -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/preset-env.min.js"></script>
+
+    <script type="text/babel">
+        import PropTypes from 'prop-types';
+        class Meter extends React.Component {
+            render() {
+                const { name, reading, type } = this.props;
+                return (
+                    <ul>
+                        <li>Name: {name}</li>
+                        <li>Reading: {reading}</li>
+                        <li>Type: {type}</li>
+                    </ul>
+                );
+            }
+        }
+        Meter.PropTypes = {
+            name:PropTypes.string.isRequired,
+            reading:PropTypes.number.isRequired
+        }
+        // Render the Meter component into the element with ID 'bx1'
+        ReactDOM.render(<Meter name="aculink810" reading="100kwh" type="physical" />, document.getElementById('bx1'));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D6 Component Lifetime</title>
+</head>
+
+<body>
+    <div id="bx1"></div>
+    <!-- 引入线上的React和ReactDOM以及Babel，可以复制链接然后save保存到本地，线上以及本地的引入的效果是一样的 -->
+    <!-- import react core package first import this -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- import react-dom, for letting react operate DOM -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- import babel for module test -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/preset-env.min.js"></script>
+    <script type="text/babel">
+        class Demo extends React.Component {
+            // render函数在每次初始化渲染的时候被React调用，然后每次state状态更改的时候再次被React调用，所以render函数的调用次数是1+n
+            //如果在render函数的内部调用setInterval就会在每次调用render的时候都开一个setInterval会陷入无限递归所以setInterval必须放在函数外部
+            // componentDidMount是render的兄弟函数在初始化渲染完成之后被调用且只调用1次
+            // 在类中只允许写自定义方法和赋值语句不能像函数体中一样自由的写任意内容
+            // 在类的内部函数体的外部的赋值语句a=100，这个是加给整个类的类属性，需要用类名.属性名去调用
+            // 可以在任何地方通过this.a=100去给实例添加属性，这属性是实例自己的而不是类的
+            // 任何方法的内部调用其他方法都需要用实例去调用也就是需要用到this.方法名去调用
+            // 组件的生命周期回调函数：render初次挂载组件，componentDidMount组件挂载完成调用， componentWillUnmount即将卸载组件时调用 
+            // 最常用的React生命周期回调函数：componentDidMount，用来做一些初始化的事儿，例如开启定时器，或者发送网络请求，或者订阅消息...
+            // 其次是componentWillUnmount,用来做一些收尾的事儿，取消定时器...
+            state = {
+                opacity: 1,
+                active: false
+            }
+            componentWillUnmount() {
+                alert('function componentWillUnmount is called and component is being unmounted shortly')
+                clearInterval(this.timer)
+            }
+            death = () => {
+                // 在卸载组件前将interval函数清除掉
+                // clearInterval(this.timer)
+                ReactDOM.unmountComponentAtNode(document.getElementById('bx1'))
+            }
+            onMouseDownEvent = () => {
+                this.setState({ active: true })
+            }
+            onMouseUpEvent = () => {
+                this.setState({ active: false })
+            }
+            onMouseLeaveEvent = () => {
+                this.setState({ active: false })
+            }
+            componentDidMount() {
+                // setInterval是windwow对象的方法不能被this调用
+                // 定义一个实例对象的属性保存interval，属性挂载在组件实例自身上
+                this.timer = setInterval(() => {
+                    let { opacity } = this.state
+                    opacity -= 0.1
+                    if (opacity <= 0) {
+                        opacity = 1
+                    }
+                    this.setState({ opacity })
+                }, 200)
+            }
+            render() {
+                const testStyle = {
+                    textAlign: "center",
+                    color: "#dd302d",
+                    opacity: this.state.opacity
+
+                }
+                const btnStyle = {
+                    backgroundColor: this.state.active ? 'yellow' : 'transparent'
+                }
+                return (
+                    <div id="info">
+                        <div id="info_container" style={{
+                            width: "300px",
+                            height: "100px",
+                            border: "1px black solid", 
+
+                        }}>
+                            <div id="test" style={testStyle}>Test Acuvim2v3 Started</div>
+                        </div>
+                        <button onClick={this.death} onMouseDown={this.onMouseDownEvent} onMouseUp={this.onMouseUpEvent} onMouseLeave={this.onMouseLeaveEvent} style={btnStyle}>Unmount</button>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Demo />, document.getElementById('bx1'))
+    </script>
+</body>
+
+</html>

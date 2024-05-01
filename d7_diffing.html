@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D7 Diffing</title>
+</head>
+
+<body>
+    <div class="bx1"></div>
+    <!-- import react core package first import this -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- import react-dom, for letting react operate DOM -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- import babel for module test -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/preset-env.min.js"></script>
+    <script type="text/babel">
+        class Time extends React.Component {
+            state = { date: new Date()}
+            // 在组件加载完成的时候就开启了定时器，每秒会自动更新state的值
+            // 每次state的值更新之后，React会自动从新渲染最小力度，也就是标签，哪个标签更新了就从新渲染哪个标签
+            componentDidMount() {
+                this.timer = setInterval(() => {
+                    this.setState({date: new Date()})
+                },1000)
+            }
+            render() {
+                return(
+                    <div>
+                        <h1>Test AcuLink810 Log Time</h1>    
+                        <input type="text" />
+                        <span>local time is now: {this.state.date.toTimeString()} </span>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Time />, document.querySelector('.bx1'))
+    </script>
+</body>
+
+</html>

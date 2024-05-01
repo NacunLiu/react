@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D7 Key </title>
+</head>
+
+<body>
+    <div class="bx1"></div>
+    <!-- import react core package first import this -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- import react-dom, for letting react operate DOM -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- import babel for module test -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/preset-env.min.js"></script>
+    <script type="text/babel">
+        // React/VUE中的key的作用，在我们遍历列表的时候最好不要用index
+        // key是虚拟DOM的标识，在更新组件的时候起着非常重要的作用
+        // 当state中的数据发生变化时，React会根据新的数据立即生成新的虚拟DOM
+        // 随后React会将新的虚拟DOM树与旧的虚拟DOM树进行diffing比较
+        // 在旧的虚拟DOM树中找到了新的虚拟DOM中的key，对值进行比较，一样则直接用旧的真实DOM，不一样则创建新的真实DOM并且渲染到页面
+        // 如果不能找到对应的key，则创建新的key和value并且渲染到页面
+        // 对于列表的操作，需要给每一个元素添加一个key用来标识，建议使用id作为key，不使用index作为key
+        // 使用index作为key，一旦对数据进行逆序添加，删除以及其他破坏数据顺序以及输入类的操作DOM会产生错乱
+        class Test extends React.Component {
+            state = {
+                persons: [
+                    { id: 1, meter: "aculink810" },
+                    { id: 2, meter: "acuvim2v3" }
+                ]
+            }
+            add = () => {
+                const persons = this.state.persons
+                // persons.push({id:3, meter:"1310"})
+                // this.setState({persons})
+                const p = { id: 3, meter: "1310" }
+                this.setState({ persons: [p, ...persons] })
+            }
+            render() {
+                // map方法遍历数组元素，借助回调函数传入每一个元素
+                return (
+                    <div>index as key:
+                        <ul>
+                            {this.state.persons.map((item, index) => {
+                                return <li key={index}>{item.id} &nbsp; {item.meter} &nbsp; <input type="text" /></li>
+                            })}
+                        </ul>
+                        <button onClick={this.add}>add case</button>
+                        <hr /> id as key:
+                        <ul>
+                            {this.state.persons.map((item) => {
+                                return <li key={item.id}>{item.id} &nbsp; {item.meter} &nbsp; <input type="text" /></li>
+                            })}
+                        </ul>
+                        <button onClick={this.add}>add case</button>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Test />, document.getElementsByClassName('bx1')[0])
+    </script>
+</body>
+
+</html>
